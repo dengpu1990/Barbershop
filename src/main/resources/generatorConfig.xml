@@ -7,20 +7,33 @@
 
     <properties resource="generator.properties"></properties>
     <classPathEntry
-        location="D:\repo\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar" />
+        location="${drive.class.path}" />
     <context id="context1" targetRuntime="MyBatis3">
         <jdbcConnection driverClass="${jdbc.driverClass}" connectionURL="${jdbc.url}" userId="${jdbc.userId}" password="${jdbc.password}">
     	</jdbcConnection>
-        <javaModelGenerator targetPackage="xxx.account.model"
-            targetProject="E:\STSworkspace\Barbershop\src\main\java" />
-        <sqlMapGenerator targetPackage="xxxx.account.persistence"
-            targetProject="E:\STSworkspace\Barbershop\包名\src\main\resources" />
-        <javaClientGenerator targetPackage="xxxx.account.persistence"
-            targetProject="E:\STSworkspace\Barbershop\src\main\java" type="XMLMAPPER" />
-        <table schema="CL_DEMO" tableName="tb_user" />
-        <table schema="CL_DEMO" tableName="tb_role" />
-        <table schema="CL_DEMO" tableName="tb_permission" />
-        <table schema="CL_DEMO" tableName="tb_role_user" />
-        <table schema="CL_DEMO" tableName="tb_permission_role" />
+
+        <!--生成的model 包路径 -->
+        <javaModelGenerator targetPackage="${model.package}" targetProject="${target.project}" >
+        <property name="enableSubPackages" value="ture"/>
+        <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成xml mapper文件 路径 -->
+        <sqlMapGenerator targetPackage="mybatis/mappers" targetProject="src\main\resources">
+            <property name="enableSubPackages" value="ture"/>
+        </sqlMapGenerator>
+        <!--<sqlMapGenerator targetPackage="xxxx.account.persistence"-->
+            <!--targetProject="E:\STSworkspace\Barbershop\包名\src\main\resources" />-->
+        <!--<javaClientGenerator targetPackage="xxxx.account.persistence"-->
+            <!--targetProject="E:\STSworkspace\Barbershop\src\main\java" type="XMLMAPPER" />-->
+
+        <!-- 生成的Dao接口 的包路径 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${dao.package}" targetProject="${target.project}">
+            <property name="enableSubPackages" value="ture"/>
+        </javaClientGenerator>
+
+        <table  tableName="t_customer" domainObjectName="Customer"/>
+        <table  tableName="t_order"  domainObjectName="Order"/>
+        <table  tableName="t_hairdresser" domainObjectName="HairDresser"/>
     </context>
 </generatorConfiguration>
