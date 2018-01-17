@@ -1,14 +1,13 @@
 server:
   port: 8080
-
+  context-path: /barbershop
 # mybatis_config
 mybatis:
     mapper-locations: classpath:mybatis/mappers/*.xml
-
+    typeAliasesPackage: com.dengpu.barbershop.model
 #datasource
 spring:
     datasource:
-        name: era
         url: jdbc:mysql://localhost:3306/barbershop?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
         password:
